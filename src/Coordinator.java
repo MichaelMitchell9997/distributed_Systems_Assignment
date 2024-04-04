@@ -1,17 +1,24 @@
 import java.net.*;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 public class Coordinator {
+
+
 
     public static void main (String args[]){
         int port = 7000;
 
         Coordinator c = new Coordinator ();
+        Logger.resetLogFile();
 
         try {
             InetAddress c_addr = InetAddress.getLocalHost();
             String c_name = c_addr.getHostName();
             System.out.println ("Coordinator address is "+c_addr);
             System.out.println ("Coordinator host name is "+c_name+"\n\n");
+
         }
         catch (Exception e) {
             System.err.println(e);
