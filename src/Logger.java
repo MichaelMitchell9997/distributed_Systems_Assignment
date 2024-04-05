@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Date;
 
-// Defines a Logger class for logging time stamps of the start and finish of critical section and buffer size to a file.
+// Defines a Logger class for logging time-stamps of the start and finish of critical section as well as the buffer size to a file.
 public class Logger {
     private final String filePath;
     private static Logger instance;

@@ -19,12 +19,35 @@ public class Node {
 
     private static final String SHUTDOWN_FLAG = "shutdown.flag";
 
+    private void connectToCoordinator() {
+        while (true) {
+            try {
+                // Attempt to connect to the coordinator
+                s = new Socket(c_host, c_request_port); // ai used here to debug, realised I was passing n_host and n_host_name
+                System.out.println("Successfully connected to the coordinator.");
+
+                break; // Exit the loop if the connection is successful
+            } catch (IOException e) {
+                int waitTime =5000;
+                System.out.println("Failed to connect to coordinator. Retrying in " + waitTime / 1000 + " seconds...");
+                try {
+                    Thread.sleep(waitTime); // Wait before retrying
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+        }
+    }
+
+
 
     public Node(String nam, int por, int sec, boolean shutdown) throws InterruptedException {
         ra = new Random();
-        n_host_name = nam;
-        n_port = por;
+        this.n_host_name = nam;
+        this.n_port = por;
         n_shutdown = shutdown;
+        connectToCoordinator();
 
 
         System.out.println("Node " + n_host_name + ":" + n_port + " of DME is active ....");
@@ -40,6 +63,7 @@ public class Node {
             n_ss = new ServerSocket(n_port);
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("here 1");
         }
 
         while (true) {
@@ -118,15 +142,8 @@ public class Node {
 
             } catch (IOException e) {
                 System.out.println(e);
-                System.exit(1);
+                connectToCoordinator();
             }
-            try {
-                s.close();
-
-            } catch (IOException e) {
-                System.out.println("Something went wrong closing the sockets " + e);
-            }
-
         }
     }
 
