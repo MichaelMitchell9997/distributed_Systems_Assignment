@@ -27,7 +27,6 @@ public class C_receiver extends Thread{
 
         while (true) {
             try{
-
                 // >>> get a new connection
                 socketFromNode = s_socket.accept();
                 System.out.println ("C:receiver    Coordinator has received a request ...") ;

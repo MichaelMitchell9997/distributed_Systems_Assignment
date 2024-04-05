@@ -14,11 +14,6 @@ public class C_mutex extends Thread{
     int    n_port;
     int lastBufferSize = -1;
 
-    private static Set<String> activeNodes = ConcurrentHashMap.newKeySet();
-
-
-    RandomAccessFile log;
-
     public C_mutex (C_buffer b, int p){
         buffer = b;
         port = p;
